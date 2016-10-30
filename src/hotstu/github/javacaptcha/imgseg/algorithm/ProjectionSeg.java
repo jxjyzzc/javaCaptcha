@@ -1,0 +1,55 @@
+package hotstu.github.javacaptcha.imgseg.algorithm;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import hotst.github.javacaptcha.model.BinaryMatrix;
+import hotst.github.javacaptcha.model.SubRect;
+
+/**
+ * 投影分割
+ * 图像对应方向的投影，就是在该方向取一条直线，统计垂直于该直线（轴）的图像上的像素的黑点数量，累加求和作为该轴该位置的值；
+ * 基于图像投影的切割就是将图像映射成这种特征后，基于这种特征判定图像的切割位置（坐标），用这个坐标来切割原图像，得到目标图像
+ * @author zc
+ *
+ */
+public class ProjectionSeg {
+	
+		public static List<BinaryMatrix> myProjection( BinaryMatrix img){
+			List<SubRect> subImgList = new ArrayList<SubRect>();
+//			img.navieRemoveNoise();//去噪点
+			int w = img.getWidth(); int h = img.getHeight();
+			int[] xpro = img.xpro();
+			//人保的验证码y轴无需分割
+			char currentGroup = 0;
+			for(int i=0;i<xpro.length;i++){
+				int length=0;
+				while(i<xpro.length && xpro[i]>0){
+					i++;
+					length++;
+				}
+				if(length>2){
+					currentGroup ++;
+					SubRect rect = new SubRect(currentGroup);			//保存当前字符块的坐标点
+					rect.left=i - length;
+					rect.top= 0;
+					rect.right= i;
+					rect.bottom=h;
+					subImgList.add(rect);
+				}
+			}
+	
+		List<BinaryMatrix> projectionList = new ArrayList<BinaryMatrix>();
+		for (SubRect r : subImgList) {
+			BinaryMatrix image = BinaryMatrix.fromBlank(r.getWidth(), r.getHeight());
+			for (int i = 0; i < r.getWidth(); i++) {
+				for (int j = 0; j < r.getHeight(); j++) {
+					if(img.getValue(r.left+i, r.top+j))
+						image.setTrue(i, j);
+				}
+			}
+			projectionList.add(image);
+		}
+		return projectionList;
+	 }
+}
