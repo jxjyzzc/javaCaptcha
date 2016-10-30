@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 import hotstu.github.javacaptcha.imgprocessor.GenericPreprocessor;
 import hotstu.github.javacaptcha.imgseg.BIDropWaterSeg;
-import hotstu.github.javacaptcha.imgseg.ColorFillSeg;
+import hotstu.github.javacaptcha.imgseg.algorithm.ColorFillSeg;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

@@ -1,4 +1,4 @@
-package hotstu.github.javacaptcha.imgseg;
+package hotstu.github.javacaptcha.imgseg.algorithm;
 
 import hotst.github.javacaptcha.common.Constants;
 import hotst.github.javacaptcha.model.BinaryMatrix;
@@ -21,7 +21,7 @@ public class ColorFillSeg {
 		int h = im.getHeight();
 		
 		ArrayList<SubRect> subImgList = new ArrayList<SubRect>(); 				//保存子图像
-		boolean[][] bfsLookup = new boolean[w][h]; 
+		boolean[][] bfsLookup = new boolean[w][h]; //记录整个数组已访问的点
 		char[][] groupLookup = new char[w][h];
 		char currentGroup = 0;
 		for (int x = 0; x < w; x++) {
@@ -74,10 +74,10 @@ public class ColorFillSeg {
 			}
 		}
 		
-		List<BinaryMatrix> cfgList = new ArrayList<>();
+		List<BinaryMatrix> cfgList = new ArrayList<BinaryMatrix>();
 		for (SubRect r : subImgList) {
 			if (r.getWidth() < Constants.MIN_RECT_WIDTH || r.getHeight() < Constants.MIN_RECT_HEGITH) {
-				System.out.printf("ColorFillSeg:丢弃小分割：(%d, %d) < (%d, %d)\n", r.getWidth(), 
+				System.out.printf("ColorFillSeg:(width,height)：(%d, %d) < (%d, %d)\n", r.getWidth(), 
 						r.getHeight(), Constants.MIN_RECT_WIDTH, Constants.MIN_RECT_HEGITH);
 				continue;
 			}

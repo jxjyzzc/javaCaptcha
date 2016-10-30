@@ -7,6 +7,7 @@ import hotstu.github.javacaptcha.imgprocessor.GenericPreprocessor;
 import hotstu.github.javacaptcha.imgprocessor.ICaptchaPreprocessor;
 import hotstu.github.javacaptcha.imgseg.GenericSegment;
 import hotstu.github.javacaptcha.imgseg.ISegment;
+import hotstu.github.javacaptcha.imgseg.PiccSegment;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -24,7 +25,8 @@ public class ControllerImpl implements IController{
 	
 	public ControllerImpl() {
 		this.preProcessor = new GenericPreprocessor();
-		this.segProcessor = new GenericSegment();
+//		this.segProcessor = new GenericSegment();
+		this.segProcessor = new PiccSegment();
 	}
 
 	@Override

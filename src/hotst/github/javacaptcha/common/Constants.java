@@ -10,12 +10,12 @@ public class Constants {
 	/**
 	 * 一个字符切片的宽度最小像素，小于这个值将被视为噪点被抛弃
 	 */
-	public static final int MIN_RECT_WIDTH = 1;
+	public static final int MIN_RECT_WIDTH = 4;
 	
 	/**
 	 * 一个字符切片的高度最小像素，小于这个值将被视为噪点被抛弃
 	 */
-	public static final int MIN_RECT_HEGITH = 1;
+	public static final int MIN_RECT_HEGITH = 4;
 	
 	/**
 	 * 一个字符切片的矩形区域类最小黑色像素总数，小于这个值将被视为噪点被抛弃

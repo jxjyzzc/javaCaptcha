@@ -15,6 +15,7 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
+import hotst.github.javacaptcha.common.Constants;
 import hotst.github.javacaptcha.common.ImageCommons;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 
@@ -31,7 +32,6 @@ public class GenericPreprocessor implements ICaptchaPreprocessor {
 		int h = im.getHeight();
 		int[][] gray = new int[w][h];
 		w=w-4;h=h-4;
-		im = cutImage("jpg",im,2,2,w,h);//去掉外边框
 		//灰度化
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
@@ -55,9 +55,12 @@ public class GenericPreprocessor implements ICaptchaPreprocessor {
 				
 			}
 		}
-		
+		//8邻域去噪点,有效果但对切图帮助不大,先注释掉
+//		res.navieRemoveNoise();
 		return res;
 	}
+	
+	
 	
 	/**
 	 * 裁剪图片
@@ -101,12 +104,12 @@ public class GenericPreprocessor implements ICaptchaPreprocessor {
 
 
 	public static void test() {
-		File f = new File("D:/采集项目/captcha/h3cv.jpg");
+		File f = new File("D:/采集项目/captcha/z0rj.jpg");
 		try {
 			BufferedImage img = ImageIO.read(f);
 			GenericPreprocessor g = new GenericPreprocessor();
 			System.out.println(g.preprocess(img));
-			g.preprocess(img).dump2bitmap("C:/tmp/cut/h3cv_pre.png");
+			g.preprocess(img).dump2bitmap("C:/tmp/cut/z0rj_pre.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

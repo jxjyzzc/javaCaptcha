@@ -2,6 +2,7 @@ package hotstu.github.javacaptcha.imgseg;
 
 import hotst.github.javacaptcha.common.Constants;
 import hotst.github.javacaptcha.model.BinaryMatrix;
+import hotstu.github.javacaptcha.imgseg.algorithm.ColorFillSeg;
 
 import java.io.File;
 import java.io.IOException;

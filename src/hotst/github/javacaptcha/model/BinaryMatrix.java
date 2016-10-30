@@ -1,8 +1,10 @@
 package hotst.github.javacaptcha.model;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
@@ -54,6 +56,7 @@ public final class BinaryMatrix {
 	 * @return 超出边境将会抛出异常
 	 */
 	public boolean getValue(int x, int y) {
+//		System.out.println("x:"+x+",y:"+y);
 		return array[y][x];
 	}
 	
@@ -67,6 +70,48 @@ public final class BinaryMatrix {
 	
 	public void setFalse(int x, int y) {
 		array[y][x] = false;
+	}
+	
+	/**
+	* 图像向x轴做投影后的数组
+	* 
+	* @param imagedata
+	* @param w 宽
+	* @param h 高
+	* @return
+	*/
+	public int[] xpro() {
+		int width = getWidth();
+		int height = getHeight();
+		int xpro[] = new int[width];
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+			if (getValue(i, j))
+				xpro[i]++;
+			}
+		}
+		return xpro;
+	}
+
+	/**
+	* 图像向x轴做投影后的数组
+	* 
+	* @param imagedata
+	* @param w 宽
+	* @param h 高
+	* @return
+	*/
+	public int[] ypro() {
+		int width = getWidth();
+		int height = getHeight();
+		int ypro[] = new int[height];
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i < width; i++) {
+			if (getValue(i, j))
+				ypro[j]++;
+			}
+		}
+		return ypro;
 	}
 	
 	public BinaryMatrix scaleTo(int width, int height) {		
@@ -93,6 +138,64 @@ public final class BinaryMatrix {
 		}
 		
 		return new BinaryMatrix(res);
+	}
+	
+	/**
+	 * 8领域降噪法
+	 */
+	public BinaryMatrix navieRemoveNoise(){
+		 //naive remove noise  
+		boolean nValue;
+	    int i,j,m,n,nCount;  
+	    int nWidth = getWidth();  
+	    int nHeight = getHeight();  
+	    boolean[][] res = new boolean[nHeight][nWidth];
+	    //去边框
+	    for (i = 0; i < nWidth ; ++i)  
+	    {  
+	        setFalse(i, 0); 
+	        setFalse(i, nHeight-1); 
+	    }  
+	    for (i = 0; i < nHeight ; ++i)  
+	    {  
+	    	setFalse(0,i);  
+	    	setFalse(nWidth-1,i);  
+	    }  
+	    //if the neighbor of a point is white but it is black, delete it  
+	    for (j = 1; j < nHeight; ++j)  
+	        for (i = 1; i < nWidth; ++i)  
+	        {  
+	            nValue = getValue(i, j); 
+	            //false 白色  true 黑色
+	            if (nValue)  
+	            {  
+	                nCount = 0;  
+	                for (m = i-1; m <= i+1; ++m)  
+	                    for (n = j-1; n <= j+1; ++n)  
+	                    {  
+	                    	if(n==j&&m==i) {
+	                    		continue;//跳过本节点,防止重复计数	
+	                    	}
+	                        if(getValue(m,n))  
+	                            nCount++;  
+	                    }  
+	                if (nCount < Constants.MIN_RECT_PIXELS)  
+	                	setFalse(i,j);  
+	            }  
+	            else  
+	            {  
+	                nCount = 0;  
+	                for (m = i-1; m <= i+1 && m<nWidth; ++m)  
+	                    for (n = j-1; n <= j+1 && n<nHeight; ++n)  
+	                    {  
+	                        if( getValue(m,n))  
+	                            nCount++;  
+	                    }  
+	                if (nCount >= 7)  
+	                	setTrue(i,j);  
+	            }  
+	        }  
+	    return new BinaryMatrix(res);
 	}
 	
 	/**

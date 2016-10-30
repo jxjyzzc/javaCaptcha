@@ -1,18 +1,20 @@
 package hotst.github.javacaptcha.svm;
 
-import hotst.github.javacaptcha.common.Constants;
-import hotst.github.javacaptcha.model.BinaryMatrix;
-import hotstu.github.javacaptcha.imgprocessor.GenericPreprocessor;
-import hotstu.github.javacaptcha.imgseg.GenericSegment;
-
 import java.awt.image.BufferedImage;
-import java.io.File;import java.io.FileFilter;
+import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
+
+import hotst.github.javacaptcha.common.Constants;
+import hotst.github.javacaptcha.model.BinaryMatrix;
+import hotstu.github.javacaptcha.imgprocessor.GenericPreprocessor;
+import hotstu.github.javacaptcha.imgseg.ISegment;
+import hotstu.github.javacaptcha.imgseg.PiccSegment;
 
 public class Trainning {
 	private static final String PROCESSEDIMGS = "D:/采集项目/captcha/processDimgs/";
@@ -32,7 +34,7 @@ public class Trainning {
 		});
 		
 		GenericPreprocessor preProcessor = new GenericPreprocessor();
-		GenericSegment segProcessor = new GenericSegment();
+		PiccSegment segProcessor = new PiccSegment();
 		
 		for (File f : files) {
 			String fileName = f.getName().split("\\.")[0];
@@ -140,9 +142,9 @@ public class Trainning {
 		System.out.println("训练结束");
 	}
 	public static void main(String[] args) {
-//			batchPreProcess();
-		createTraData();
-		startTrainning();
+		batchPreProcess();
+//		createTraData();
+//		startTrainning();
 		
 	}
 
