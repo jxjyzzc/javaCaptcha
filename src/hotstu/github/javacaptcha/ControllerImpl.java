@@ -34,6 +34,7 @@ public class ControllerImpl implements IController{
 		try {
 			BufferedImage sourceImage = ImageIO.read(f);
 			BinaryMatrix im = preprocess(sourceImage);
+			
 			List<BinaryMatrix> interList = split(im);
 			
 			RobustPredict.predict(interList);

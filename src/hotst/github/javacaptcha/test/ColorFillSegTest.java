@@ -20,7 +20,7 @@ public class ColorFillSegTest {
 
 	@Test
 	public void testCfsBinaryMatrix() {
-		File f = new File("download/58.jpg");
+		File f = new File("C:/tmp/cut/h3cv_pre.png");
 
 		BufferedImage img = null;
 		try {

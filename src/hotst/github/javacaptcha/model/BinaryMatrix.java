@@ -1,12 +1,12 @@
 package hotst.github.javacaptcha.model;
 
-import hotst.github.javacaptcha.common.Constants;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import hotst.github.javacaptcha.common.Constants;
 
 public final class BinaryMatrix {
 	
@@ -190,7 +190,7 @@ public final class BinaryMatrix {
 	 * @param dst
 	 * @throws IOException
 	 */
-	public void dump2bitmap(File dst) throws IOException {
+	public void dump2bitmap(String dst) throws IOException {
 		BufferedImage im = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_GRAY);
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
@@ -200,7 +200,7 @@ public final class BinaryMatrix {
 					im.setRGB(j, i, Constants.COLOR_WHITE);
 			}
 		}
-		ImageIO.write(im, "png", dst);
+		ImageIO.write(im, "png", new File(dst));
 		
 	}
 	
@@ -208,7 +208,7 @@ public final class BinaryMatrix {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(h + "X" + w);
+		sb.append("图片数组:"+h + "X" + w);
 		sb.append('\n');
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {

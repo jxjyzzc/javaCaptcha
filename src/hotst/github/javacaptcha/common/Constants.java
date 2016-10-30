@@ -10,27 +10,27 @@ public class Constants {
 	/**
 	 * 一个字符切片的宽度最小像素，小于这个值将被视为噪点被抛弃
 	 */
-	public static final int MIN_RECT_WIDTH = 5;
+	public static final int MIN_RECT_WIDTH = 1;
 	
 	/**
 	 * 一个字符切片的高度最小像素，小于这个值将被视为噪点被抛弃
 	 */
-	public static final int MIN_RECT_HEGITH = 8;
+	public static final int MIN_RECT_HEGITH = 1;
 	
 	/**
 	 * 一个字符切片的矩形区域类最小黑色像素总数，小于这个值将被视为噪点被抛弃
 	 */
-	public static final int MIN_RECT_PIXELS = 30;
+	public static final int MIN_RECT_PIXELS = 2;
 	
 	/**
 	 * 平均字符宽度
 	 */
-	public static final int AVER_CHAR_WIDTH = 12;
+	public static final int AVER_CHAR_WIDTH = 7;
 	
 	/**
 	 * 查找字符边境时的左右偏移量，例如，在[x-a,x+a]的地方查询交界点中的a
 	 */
-	public static final int CHAR_RANG_WINDOW = 8;
+	public static final int CHAR_RANG_WINDOW = 2;
 	
 	public static final int COLOR_WHITE = 0xffffffff;
 	
