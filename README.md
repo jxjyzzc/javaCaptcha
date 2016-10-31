@@ -1,6 +1,7 @@
 一个验证码识别框架
 ==========
-在作者hotstu （https://github.com/hotstu/javaCaptcha）基础上改写处理人保业务
+在作者hotstu （https://github.com/hotstu/javaCaptcha）
+基础上改写处理人保业务
 ------------------------
 
 ### Introduction: 
