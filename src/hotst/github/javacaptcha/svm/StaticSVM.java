@@ -1,6 +1,6 @@
 package hotst.github.javacaptcha.svm;
 
-import hotst.github.javacaptcha.common.Constants;
+import hotst.github.javacaptcha.common.PiccConstants;
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ public enum StaticSVM{
 
 	private StaticSVM() {
 		try {
-			model = svm.svm_load_model(Constants.SVM_MODEL_FILE);
+			model = svm.svm_load_model(PiccConstants.SVM_MODEL_FILE);
 			System.out.println("++++++svm.model2 is loaded+++++");
 		} catch (IOException e) {
 			e.printStackTrace();

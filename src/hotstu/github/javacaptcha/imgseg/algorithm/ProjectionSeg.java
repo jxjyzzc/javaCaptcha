@@ -3,6 +3,7 @@ package hotstu.github.javacaptcha.imgseg.algorithm;
 import java.util.ArrayList;
 import java.util.List;
 
+import hotst.github.javacaptcha.common.PiccConstants;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 import hotst.github.javacaptcha.model.SubRect;
 
@@ -28,13 +29,13 @@ public class ProjectionSeg {
 					i++;
 					length++;
 				}
-				if(length>2){
+				if(length>PiccConstants.MIN_RECT_WIDTH){
 					currentGroup ++;
 					SubRect rect = new SubRect(currentGroup);			//保存当前字符块的坐标点
-					rect.left=i - length;
+					rect.left=i - length-1;
 					rect.top= 0;
 					rect.right= i;
-					rect.bottom=h;
+					rect.bottom=h-1;
 					subImgList.add(rect);
 				}
 			}

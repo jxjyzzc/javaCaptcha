@@ -1,5 +1,8 @@
 package hotstu.github.javacaptcha.imgprocessor;
 
+import hotst.github.javacaptcha.common.ImageCommons;
+import hotst.github.javacaptcha.model.BinaryMatrix;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -15,10 +18,6 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
-import hotst.github.javacaptcha.common.Constants;
-import hotst.github.javacaptcha.common.ImageCommons;
-import hotst.github.javacaptcha.model.BinaryMatrix;
-
 public class GenericPreprocessor implements ICaptchaPreprocessor {
 	
 	
@@ -31,7 +30,7 @@ public class GenericPreprocessor implements ICaptchaPreprocessor {
 		int w = im.getWidth();
 		int h = im.getHeight();
 		int[][] gray = new int[w][h];
-		w=w-4;h=h-4;
+		
 		//灰度化
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
@@ -42,7 +41,6 @@ public class GenericPreprocessor implements ICaptchaPreprocessor {
 		}
 		
 		BinaryMatrix res = BinaryMatrix.fromBlank(w, h);
-		
 		//二值化
 		int threshold = ImageCommons.getOstu(gray, w, h);
 		for (int x = 0; x < w; x++) {
@@ -55,8 +53,7 @@ public class GenericPreprocessor implements ICaptchaPreprocessor {
 				
 			}
 		}
-		//8邻域去噪点,有效果但对切图帮助不大,先注释掉
-//		res.navieRemoveNoise();
+		res.removeBorder();
 		return res;
 	}
 	

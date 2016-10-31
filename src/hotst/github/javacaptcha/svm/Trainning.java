@@ -1,5 +1,11 @@
 package hotst.github.javacaptcha.svm;
 
+import hotst.github.javacaptcha.common.PiccConstants;
+import hotst.github.javacaptcha.model.BinaryMatrix;
+import hotstu.github.javacaptcha.imgprocessor.GenericPreprocessor;
+import hotstu.github.javacaptcha.imgseg.GenericSegment;
+import hotstu.github.javacaptcha.imgseg.PiccSegment;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileFilter;
@@ -10,15 +16,9 @@ import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 
-import hotst.github.javacaptcha.common.Constants;
-import hotst.github.javacaptcha.model.BinaryMatrix;
-import hotstu.github.javacaptcha.imgprocessor.GenericPreprocessor;
-import hotstu.github.javacaptcha.imgseg.ISegment;
-import hotstu.github.javacaptcha.imgseg.PiccSegment;
-
 public class Trainning {
-	private static final String PROCESSEDIMGS = "D:/采集项目/captcha/processDimgs/";
-	private static final String RAW_CHAR_DIR = "D:/采集项目/captcha/";
+	private static final String PROCESSEDIMGS = "D:/captcha/picc/processDimgs/";
+	private static final String RAW_CHAR_DIR = "D:/captcha/picc";
 	
 	public static void batchPreProcess() {
 		File dir = new File(RAW_CHAR_DIR);
@@ -34,7 +34,8 @@ public class Trainning {
 		});
 		
 		GenericPreprocessor preProcessor = new GenericPreprocessor();
-		PiccSegment segProcessor = new PiccSegment();
+		GenericSegment segProcessor = new GenericSegment();
+//		PiccSegment segProcessor = new PiccSegment();
 		
 		for (File f : files) {
 			String fileName = f.getName().split("\\.")[0];
@@ -65,7 +66,7 @@ public class Trainning {
 			}});
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter(new File(Constants.SVM_TRANS_FILE));
+			writer = new PrintWriter(new File(PiccConstants.SVM_TRANS_FILE));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 			return;
@@ -128,7 +129,7 @@ public class Trainning {
 	}
 
 	public static void startTrainning() {
-		String[] arg = {"-t","0",Constants.SVM_TRANS_FILE, Constants.SVM_MODEL_FILE};
+		String[] arg = {"-t","0",PiccConstants.SVM_TRANS_FILE, PiccConstants.SVM_MODEL_FILE};
 		
 		//predict参数
 		//String[] parg = {"svm/svmscale.test","svm/svm.model","svm/result.txt"};

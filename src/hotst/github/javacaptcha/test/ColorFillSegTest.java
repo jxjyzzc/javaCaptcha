@@ -20,7 +20,7 @@ public class ColorFillSegTest {
 
 	@Test
 	public void testCfsBinaryMatrix() {
-		File f = new File("D:/采集项目/captcha/h3cv.jpg");
+		File f = new File("D:/captcha/picc/z0rj.jpg");
 
 		BufferedImage img = null;
 		try {
@@ -30,6 +30,7 @@ public class ColorFillSegTest {
 		}
 		GenericPreprocessor g = new GenericPreprocessor();
 		BinaryMatrix b = g.preprocess(img);
+		System.out.println(b);
 		List<BinaryMatrix> lb = ColorFillSeg.cfs(b);
 		
 		for (BinaryMatrix item : lb) {

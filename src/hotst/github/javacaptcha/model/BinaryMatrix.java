@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
-import hotst.github.javacaptcha.common.Constants;
+import hotst.github.javacaptcha.common.PiccConstants;
 
 public final class BinaryMatrix {
 	
@@ -27,7 +27,7 @@ public final class BinaryMatrix {
 	 * @return
 	 */
 	public boolean isValid() {
-		if (w < Constants.MIN_RECT_WIDTH || h < Constants.MIN_RECT_HEGITH)
+		if (w < PiccConstants.MIN_RECT_WIDTH || h < PiccConstants.MIN_RECT_HEGITH)
 			return false;
 		int count = 0;
 		for (int i = 0; i < h; i++) {
@@ -36,7 +36,7 @@ public final class BinaryMatrix {
 					count++;
 			}
 		}
-		if (count < Constants.MIN_RECT_PIXELS)
+		if (count < PiccConstants.MIN_RECT_PIXELS)
 			return false;
 		return true;
 	}
@@ -141,6 +141,26 @@ public final class BinaryMatrix {
 	}
 	
 	/**
+	 * 去边框
+	 * @return
+	 */
+	public BinaryMatrix removeBorder(){
+		 int nWidth = getWidth();  
+		 int nHeight = getHeight(); 
+	    for (int i = 0; i < nWidth ; ++i)  
+	    {  
+	        setFalse(i, 0); 
+	        setFalse(i, nHeight-1); 
+	    }  
+	    for (int i = 0; i < nHeight ; ++i)  
+	    {  
+	    	setFalse(0,i);  
+	    	setFalse(nWidth-1,i);  
+	    } 
+	    return this;
+	}
+	
+	/**
 	 * 8领域降噪法
 	 */
 	public BinaryMatrix navieRemoveNoise(){
@@ -149,7 +169,6 @@ public final class BinaryMatrix {
 	    int i,j,m,n,nCount;  
 	    int nWidth = getWidth();  
 	    int nHeight = getHeight();  
-	    boolean[][] res = new boolean[nHeight][nWidth];
 	    //去边框
 	    for (i = 0; i < nWidth ; ++i)  
 	    {  
@@ -179,7 +198,7 @@ public final class BinaryMatrix {
 	                        if(getValue(m,n))  
 	                            nCount++;  
 	                    }  
-	                if (nCount < Constants.MIN_RECT_PIXELS)  
+	                if (nCount < PiccConstants.MIN_RECT_PIXELS)  
 	                	setFalse(i,j);  
 	            }  
 	            else  
@@ -195,7 +214,7 @@ public final class BinaryMatrix {
 	                	setTrue(i,j);  
 	            }  
 	        }  
-	    return new BinaryMatrix(res);
+	    return this;
 	}
 	
 	/**
@@ -209,9 +228,9 @@ public final class BinaryMatrix {
 		int top = 0;
 		int bottom = 0;
 		
-		if (w <= Constants.MIN_RECT_WIDTH || h <= Constants.MIN_RECT_HEGITH) {
+		if (w <= PiccConstants.MIN_RECT_WIDTH || h <= PiccConstants.MIN_RECT_HEGITH) {
 			System.out.printf("1.BinaryMatrix#trim:丢弃小分割：(%d, %d) < (%d, %d)\n", w, 
-					h, Constants.MIN_RECT_WIDTH, Constants.MIN_RECT_HEGITH);
+					h, PiccConstants.MIN_RECT_WIDTH, PiccConstants.MIN_RECT_HEGITH);
 			return null;
 		}
 		
@@ -262,9 +281,9 @@ public final class BinaryMatrix {
 		
 		int width = right - left + 1;
 		int height = bottom - top + 1;
-		if (width <= Constants.MIN_RECT_WIDTH || height <= Constants.MIN_RECT_HEGITH) {
+		if (width <= PiccConstants.MIN_RECT_WIDTH || height <= PiccConstants.MIN_RECT_HEGITH) {
 			System.out.printf("BinaryMatrix#trim:丢弃小分割：(%d, %d) < (%d, %d)\n", width, 
-					height, Constants.MIN_RECT_WIDTH, Constants.MIN_RECT_HEGITH);
+					height, PiccConstants.MIN_RECT_WIDTH, PiccConstants.MIN_RECT_HEGITH);
 			return null;
 		}
 		//System.out.printf("\n==%d %d %d %d w:%d,h:%d==\n", left, right, top, bottom, w, h);
@@ -280,9 +299,9 @@ public final class BinaryMatrix {
 					res[i][j] = false;
 			}
 		}
-		if (PointCount < Constants.MIN_RECT_PIXELS) {
+		if (PointCount < PiccConstants.MIN_RECT_PIXELS) {
 			//丢弃像素点小于100的图片（噪点）
-			System.out.printf("BinaryMatrix#trim:丢弃小分割：%d < %d (pixels)\n", PointCount, Constants.MIN_RECT_PIXELS);
+			System.out.printf("BinaryMatrix#trim:丢弃小分割：%d < %d (pixels)\n", PointCount, PiccConstants.MIN_RECT_PIXELS);
 			return null;
 		}
 		return new BinaryMatrix(res);
@@ -298,9 +317,9 @@ public final class BinaryMatrix {
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
 				if (array[i][j])
-					im.setRGB(j, i, Constants.COLOR_BLACK);
+					im.setRGB(j, i, PiccConstants.COLOR_BLACK);
 				else
-					im.setRGB(j, i, Constants.COLOR_WHITE);
+					im.setRGB(j, i, PiccConstants.COLOR_WHITE);
 			}
 		}
 		ImageIO.write(im, "png", new File(dst));
@@ -342,7 +361,7 @@ public final class BinaryMatrix {
 		boolean[][] res = new boolean[height][width];
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				if (input.getRGB(j, i) == Constants.COLOR_BLACK)
+				if (input.getRGB(j, i) == PiccConstants.COLOR_BLACK)
 					res[i][j] = true;
 			}
 		}

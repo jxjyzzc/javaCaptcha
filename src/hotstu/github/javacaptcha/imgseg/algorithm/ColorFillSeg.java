@@ -1,6 +1,6 @@
 package hotstu.github.javacaptcha.imgseg.algorithm;
 
-import hotst.github.javacaptcha.common.Constants;
+import hotst.github.javacaptcha.common.PiccConstants;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 import hotst.github.javacaptcha.model.Point;
 import hotst.github.javacaptcha.model.SubRect;
@@ -8,6 +8,8 @@ import hotst.github.javacaptcha.model.SubRect;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import sun.reflect.generics.tree.BottomSignature;
 
 public class ColorFillSeg {
 	
@@ -76,9 +78,10 @@ public class ColorFillSeg {
 		
 		List<BinaryMatrix> cfgList = new ArrayList<BinaryMatrix>();
 		for (SubRect r : subImgList) {
-			if (r.getWidth() < Constants.MIN_RECT_WIDTH || r.getHeight() < Constants.MIN_RECT_HEGITH) {
+//			System.out.println("left:"+r.left+",top:"+r.top+",right:"+r.right+",bottom:"+r.bottom);
+			if (r.getWidth() < PiccConstants.MIN_RECT_WIDTH || r.getHeight() < PiccConstants.MIN_RECT_HEGITH) {
 				System.out.printf("ColorFillSeg:(width,height)：(%d, %d) < (%d, %d)\n", r.getWidth(), 
-						r.getHeight(), Constants.MIN_RECT_WIDTH, Constants.MIN_RECT_HEGITH);
+						r.getHeight(), PiccConstants.MIN_RECT_WIDTH, PiccConstants.MIN_RECT_HEGITH);
 				continue;
 			}
 			BinaryMatrix image = BinaryMatrix.fromBlank(r.getWidth(), r.getHeight());
@@ -93,8 +96,8 @@ public class ColorFillSeg {
 						image.setFalse(i, j);
 				}
 			}
-			if (sumOfBlack < Constants.MIN_RECT_PIXELS) {
-				System.out.printf("ColorFillSeg:丢弃小分割：%d < %d (pixels)\n", sumOfBlack, Constants.MIN_RECT_PIXELS);
+			if (sumOfBlack < PiccConstants.MIN_RECT_PIXELS) {
+				System.out.printf("ColorFillSeg:丢弃小分割：%d < %d (pixels)\n", sumOfBlack, PiccConstants.MIN_RECT_PIXELS);
 				continue;
 			}
 			cfgList.add(image);		//将切割的中间图片加入到cfgList中

@@ -97,7 +97,7 @@ public class ImageCommons {
 			for (int y = 0; y < h; y++) {
 				for (int x = 0; x < w; x++) {
 					//System.out.printf("%x\n", im.getRGB(i, j));
-					if ( im.getRGB(x, y) == Constants.COLOR_BLACK)
+					if ( im.getRGB(x, y) == PiccConstants.COLOR_BLACK)
 						res[y][x] = true;
 					else
 						res[y][x] = false;

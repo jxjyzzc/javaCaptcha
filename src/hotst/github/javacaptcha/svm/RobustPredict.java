@@ -1,6 +1,6 @@
 package hotst.github.javacaptcha.svm;
 
-import hotst.github.javacaptcha.common.Constants;
+import hotst.github.javacaptcha.common.PiccConstants;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 
 import java.io.File;
@@ -21,7 +21,7 @@ public class RobustPredict {
 
 		PrintWriter writer = null;
 		try {
-			writer = new PrintWriter(new File(Constants.SVM_TEST_FILE));
+			writer = new PrintWriter(new File(PiccConstants.SVM_TEST_FILE));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return;
@@ -65,7 +65,7 @@ public class RobustPredict {
 		RobustPredict.svmFormat(imageList);
 
 		// predict参数
-		String[] parg = { Constants.SVM_TEST_FILE,"not use", Constants.SVM_RESULT_FILE };
+		String[] parg = { PiccConstants.SVM_TEST_FILE,"not use", PiccConstants.SVM_RESULT_FILE };
 
 		System.out.println("预测开始");
 		RobustSVMPredict.main(parg);

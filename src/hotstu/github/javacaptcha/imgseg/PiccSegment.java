@@ -1,6 +1,6 @@
 package hotstu.github.javacaptcha.imgseg;
 
-import hotst.github.javacaptcha.common.Constants;
+import hotst.github.javacaptcha.common.PiccConstants;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 import hotstu.github.javacaptcha.imgseg.algorithm.ColorFillSeg;
 import hotstu.github.javacaptcha.imgseg.algorithm.ProjectionSeg;
@@ -24,9 +24,9 @@ public class PiccSegment implements ISegment {
 			if (k == null) {
 				continue;
 			}
-			if(k.getWidth()<Constants.MIN_RECT_WIDTH) continue;//设置4为最小宽度
+			if(k.getWidth()<PiccConstants.MIN_RECT_WIDTH) continue;//设置4为最小宽度
 			//ImageCommons.matrixPrint(k);
-			BinaryMatrix m = k.scaleTo(Constants.DST_CHAR_WIDTH, Constants.DST_CHAR_HEIGHT);
+			BinaryMatrix m = k.scaleTo(PiccConstants.DST_CHAR_WIDTH, PiccConstants.DST_CHAR_HEIGHT);
 			//ImageCommons.matrixPrint(m);
 			res.add(m);
 		}

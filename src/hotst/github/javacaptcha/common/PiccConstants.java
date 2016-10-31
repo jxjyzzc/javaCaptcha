@@ -5,17 +5,17 @@ package hotst.github.javacaptcha.common;
  * @author foo
  *
  */
-public class Constants {
+public class PiccConstants {
 	
 	/**
 	 * 一个字符切片的宽度最小像素，小于这个值将被视为噪点被抛弃
 	 */
-	public static final int MIN_RECT_WIDTH = 4;
+	public static final int MIN_RECT_WIDTH = 2;
 	
 	/**
 	 * 一个字符切片的高度最小像素，小于这个值将被视为噪点被抛弃
 	 */
-	public static final int MIN_RECT_HEGITH = 4;
+	public static final int MIN_RECT_HEGITH = 1;
 	
 	/**
 	 * 一个字符切片的矩形区域类最小黑色像素总数，小于这个值将被视为噪点被抛弃
@@ -30,7 +30,7 @@ public class Constants {
 	/**
 	 * 查找字符边境时的左右偏移量，例如，在[x-a,x+a]的地方查询交界点中的a
 	 */
-	public static final int CHAR_RANG_WINDOW = 2;
+	public static final int CHAR_RANG_WINDOW = 3;
 	
 	public static final int COLOR_WHITE = 0xffffffff;
 	

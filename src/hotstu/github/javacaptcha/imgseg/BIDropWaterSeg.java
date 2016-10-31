@@ -1,6 +1,6 @@
 package hotstu.github.javacaptcha.imgseg;
 
-import hotst.github.javacaptcha.common.Constants;
+import hotst.github.javacaptcha.common.PiccConstants;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class BIDropWaterSeg {
 	private static final int B = 0;
 	
 	public static int[] find(BinaryMatrix im ) {
-		return find(im, Constants.AVER_CHAR_WIDTH, Constants.CHAR_RANG_WINDOW);
+		return find(im, PiccConstants.AVER_CHAR_WIDTH, PiccConstants.CHAR_RANG_WINDOW);
 	}
 	
 	

@@ -1,6 +1,6 @@
 package hotstu.github.javacaptcha;
 
-import hotst.github.javacaptcha.common.Constants;
+import hotst.github.javacaptcha.common.PiccConstants;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 import hotst.github.javacaptcha.svm.RobustPredict;
 import hotstu.github.javacaptcha.imgprocessor.GenericPreprocessor;
@@ -42,7 +42,7 @@ public class ControllerImpl implements IController{
 			RobustPredict.predict(interList);
 
 			reader = new BufferedReader(new FileReader(new File(
-						Constants.SVM_RESULT_FILE)));
+						PiccConstants.SVM_RESULT_FILE)));
 			String buff = null;
 				while ((buff = reader.readLine()) != null) {
 					float tmp = Float.valueOf(buff);

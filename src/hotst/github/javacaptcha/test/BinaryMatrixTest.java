@@ -1,7 +1,18 @@
 package hotst.github.javacaptcha.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import hotst.github.javacaptcha.model.BinaryMatrix;
+import hotstu.github.javacaptcha.imgprocessor.GenericPreprocessor;
+import hotstu.github.javacaptcha.imgprocessor.ICaptchaPreprocessor;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -73,7 +84,14 @@ public class BinaryMatrixTest {
 
 	@Test
 	public void testFromImage() {
-		fail("Not yet implemented");
+		try {
+			BufferedImage input = ImageIO.read(new File("D:/captcha/picc/72PICC320016001477737821104838.jpg"));
+			ICaptchaPreprocessor preProcessor = new GenericPreprocessor();
+			BinaryMatrix bm = preProcessor.preprocess(input);
+			System.out.println(bm);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
