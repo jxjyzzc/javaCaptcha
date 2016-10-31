@@ -46,7 +46,7 @@ public class GenericSegment implements ISegment {
 		for (BinaryMatrix bs : targets) {
 			c++;
 			try {
-				bs.dump2bitmap("c://tmp/" + prefix + "-" + c + ".png");
+				bs.dump2bitmap("C:/yzm/RenBao/" + prefix + "-" + c + ".png");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

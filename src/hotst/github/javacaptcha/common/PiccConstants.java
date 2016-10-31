@@ -50,10 +50,11 @@ public class PiccConstants {
 	
 	public static final String SVM_RESULT_FILE = "svm/result.txt";
 	
-	public static final String SVM_MODEL_FILE = "svm/svm.model2";
+//	public static final String SVM_MODEL_FILE = "svm/svm.model2";
+	public static final String SVM_MODEL_FILE = "svm/svm.picc_model";
+//	public static final String SVM_TRANS_FILE = "svm/svm.train2";
+	public static final String SVM_TRANS_FILE = "svm/svm.picc_train";
 	
-	public static final String SVM_TRANS_FILE = "svm/svm.train2";
-
 }
 
 

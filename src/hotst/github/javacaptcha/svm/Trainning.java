@@ -143,9 +143,9 @@ public class Trainning {
 		System.out.println("训练结束");
 	}
 	public static void main(String[] args) {
-		batchPreProcess();
-//		createTraData();
-//		startTrainning();
+//		batchPreProcess();
+		createTraData();
+		startTrainning();
 		
 	}
 

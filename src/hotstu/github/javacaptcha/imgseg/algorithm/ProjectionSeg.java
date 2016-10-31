@@ -1,11 +1,11 @@
 package hotstu.github.javacaptcha.imgseg.algorithm;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import hotst.github.javacaptcha.common.PiccConstants;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 import hotst.github.javacaptcha.model.SubRect;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 投影分割

@@ -7,7 +7,6 @@ import hotstu.github.javacaptcha.imgprocessor.GenericPreprocessor;
 import hotstu.github.javacaptcha.imgprocessor.ICaptchaPreprocessor;
 import hotstu.github.javacaptcha.imgseg.GenericSegment;
 import hotstu.github.javacaptcha.imgseg.ISegment;
-import hotstu.github.javacaptcha.imgseg.PiccSegment;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -25,10 +24,12 @@ public class ControllerImpl implements IController{
 	
 	public ControllerImpl() {
 		this.preProcessor = new GenericPreprocessor();
-//		this.segProcessor = new GenericSegment();
-		this.segProcessor = new PiccSegment();
+		this.segProcessor = new GenericSegment();
+//		this.segProcessor = new PiccSegment();
 	}
 
+	private String fileName;
+	
 	@Override
 	public String predict(File f) {
 		BufferedReader reader = null;
@@ -37,8 +38,8 @@ public class ControllerImpl implements IController{
 			BufferedImage sourceImage = ImageIO.read(f);
 			BinaryMatrix im = preprocess(sourceImage);
 			
+			fileName = f.getName();
 			List<BinaryMatrix> interList = split(im);
-			
 			RobustPredict.predict(interList);
 
 			reader = new BufferedReader(new FileReader(new File(
@@ -84,7 +85,7 @@ public class ControllerImpl implements IController{
 
 	@Override
 	public List<BinaryMatrix> split(BinaryMatrix im) {
-		return segProcessor.seg2file(im, null);
+		return segProcessor.seg2file(im, fileName);
 	}
 
 }

@@ -1,14 +1,12 @@
 package hotst.github.javacaptcha.model;
 
-import java.awt.Color;
+import hotst.github.javacaptcha.common.PiccConstants;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.imageio.ImageIO;
-
-import hotst.github.javacaptcha.common.PiccConstants;
 
 public final class BinaryMatrix {
 	
