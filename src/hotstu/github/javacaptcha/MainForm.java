@@ -87,7 +87,7 @@ public class MainForm extends JFrame {
 		
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser("download2");
+				JFileChooser fileChooser = new JFileChooser("C:/Users/fahai/Documents/captcha");
 				fileChooser.setMultiSelectionEnabled(false);
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int result = fileChooser.showOpenDialog(null);

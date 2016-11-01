@@ -161,7 +161,7 @@ public final class BinaryMatrix {
 	/**
 	 * 8领域降噪法
 	 */
-	public BinaryMatrix navieRemoveNoise(){
+	public BinaryMatrix navieRemoveNoise(int pNum){
 		 //naive remove noise  
 		boolean nValue;
 	    int i,j,m,n,nCount;  
@@ -196,7 +196,7 @@ public final class BinaryMatrix {
 	                        if(getValue(m,n))  
 	                            nCount++;  
 	                    }  
-	                if (nCount < PiccConstants.MIN_RECT_PIXELS)  
+	                if (nCount < pNum)  
 	                	setFalse(i,j);  
 	            }  
 	            else  
@@ -310,7 +310,7 @@ public final class BinaryMatrix {
 	 * @param dst
 	 * @throws IOException
 	 */
-	public void dump2bitmap(String dst) throws IOException {
+	public void dump2bitmap(String dst)  {
 		BufferedImage im = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_GRAY);
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
@@ -320,7 +320,11 @@ public final class BinaryMatrix {
 					im.setRGB(j, i, PiccConstants.COLOR_WHITE);
 			}
 		}
-		ImageIO.write(im, "png", new File(dst));
+		try {
+			ImageIO.write(im, "png", new File(dst));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

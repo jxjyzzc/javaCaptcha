@@ -1,9 +1,8 @@
 package hotst.github.javacaptcha.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 import hotstu.github.javacaptcha.imgprocessor.GenericPreprocessor;
-import hotstu.github.javacaptcha.imgseg.GenericSegment;
 import hotstu.github.javacaptcha.imgseg.algorithm.ColorFillSeg;
 
 import java.awt.image.BufferedImage;
@@ -13,14 +12,13 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class ColorFillSegTest {
 
 	@Test
 	public void testCfsBinaryMatrix() {
-		File f = new File("D:/captcha/picc/z0rj.jpg");
+		File f = new File("C:/Users/fahai/Documents/captcha/fv3w.jpg");
 
 		BufferedImage img = null;
 		try {

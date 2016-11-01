@@ -1,8 +1,15 @@
 package hotst.github.javacaptcha.common;
 
+import hotst.github.javacaptcha.model.BinaryMatrix;
+import hotst.github.javacaptcha.model.SubRect;
+
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -66,7 +73,83 @@ public class ImageCommons {
 		return threshold;
 	}
 	
+	/**
+	 * 去掉背景及干扰 (4邻域)
+	 * @param img
+	 * @return
+	 * @throws Exception
+	 */
+	public static BufferedImage removeBackgroud(BufferedImage img) {
+		final int width = img.getWidth();
+		final int height = img.getHeight();
+			for(int y=0;y<height;y++){
+				for(int x=0;x<width;x++){
+				 int r = (img.getRGB(x, y) & 0xff0000) >> 16;
+			     int g = (img.getRGB(x, y) & 0xff00) >> 8;
+			     int b = (img.getRGB(x, y) & 0xff) ;	
+					if (g>150 && r>150 && b>150) 
+					{   
+						img.setRGB(x, y, Color.WHITE.getRGB());
+					} 
+					else 
+					{   img.setRGB(x, y, Color.BLACK.getRGB());
+					}
+					if(x==0 || y==0 || x==width-1 ||y==height-1){
+						img.setRGB(x, y, Color.WHITE.getRGB());
+					}
+			     }
+		     }
+			//去掉干扰点
+			for(int y=0;y<height;y++){
+				for(int x=0;x<width;x++){
+//					int r = (img.getRGB(x, y) & 0xff0000) >> 16;
+			        int g = (img.getRGB(x, y) & 0xff00) >> 8;
+//			        int b = (img.getRGB(x, y) & 0xff) ;	
+					if (g<150) //判断是不是黑色
+					{   if(counColor(img.getRGB(x-1, y),img.getRGB(x+1, y),img.getRGB(x, y-1),img.getRGB(x, y+1))==0){
+						   img.setRGB(x, y, Color.WHITE.getRGB());
+					    }
+					} 	     
+			     }
+		     }
+		return img;
+	}
+
+	public static int counColor(int up,int down,int right,int left){
+		int coun=0;
+		if(isBlackColor(up)){coun++;}
+		if(isBlackColor(down)){coun++;}
+		if(isBlackColor(right)){coun++;}
+		if(isBlackColor(left)){coun++;}
+		return coun;
+	}
 	
+	public static boolean isBlackColor(int color){
+		int r = (color & 0xff0000) >> 16;
+        int g = (color & 0xff00) >> 8;
+        int b = (color & 0xff) ;	
+		if (g<150) //判断是不是黑色
+		{   
+			return true;
+		} 	
+		return false;
+	}
+	
+	
+	public static BufferedImage dump2Image(BinaryMatrix bm) {
+		int h = bm.getHeight();
+		int w = bm.getWidth();
+		BufferedImage im = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_GRAY);
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j < w; j++) {
+				if (bm.getValue(j, i))
+					im.setRGB(j, i, 0xff000000);
+				else
+					im.setRGB(j, i, 0xffffffff);
+			}
+		}
+		return im;
+	}
 	
 	public static void dump2Image(boolean[][] src, File dst) {
 		int h = src.length;
@@ -107,6 +190,67 @@ public class ImageCommons {
 			e.printStackTrace();
 		}
 		return res;
+	}
+	
+	public static int isWhite(int colorInt, int whiteThreshold) {
+		final Color color = new Color(colorInt);
+		if (color.getRed() + color.getGreen() + color.getBlue() > whiteThreshold) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	/**
+	 * 裁剪直方图
+	 * @param bm
+	 * @return
+	 * @throws Exception
+	 */
+	public static BinaryMatrix cutHistogram (BinaryMatrix bm,char number){
+		int hStart = 0; int hEnd = 0;
+		//垂直方向
+		int[] ypro = bm.ypro();
+		for (int y = 0; y < ypro.length; ++y) {
+			if (ypro[y]>0) {
+				hStart = y;
+				break;
+			}
+		}
+		for (int y = ypro.length - 1; y >= 0; --y) {
+			if (ypro[y]>0) {
+				hEnd = y;
+				break;
+			}
+		}
+		
+		//直方图水平方向
+		int[] xpro = bm.xpro();
+		int wStart=0; int wEnd=0;
+		for (int i = 0; i < xpro.length; i++) {
+			if(xpro[i] > 0) {
+				wStart=i;
+				break;
+			}
+		}
+		for (int i =  xpro.length-1; i>=0; i--) {
+			if(xpro[i] > 0) {
+				wEnd=i;
+				break;
+			}
+		}
+		SubRect rect = new SubRect(number);			//保存当前字符块的坐标点
+		rect.left=wStart;
+		rect.top= hStart;
+		rect.right= wEnd;
+		rect.bottom=hEnd;
+		BinaryMatrix resultBm = BinaryMatrix.fromBlank(rect.getWidth(), rect.getHeight());
+		for (int i = 0; i < rect.getWidth(); i++) {
+			for (int j = 0; j < rect.getHeight(); j++) {
+				if(bm.getValue(rect.left+i, rect.top+j))
+					resultBm.setTrue(i, j);
+			}
+		}
+		return resultBm;
 	}
 	
     /**

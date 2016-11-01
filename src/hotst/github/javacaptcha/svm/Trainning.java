@@ -4,7 +4,6 @@ import hotst.github.javacaptcha.common.PiccConstants;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 import hotstu.github.javacaptcha.imgprocessor.GenericPreprocessor;
 import hotstu.github.javacaptcha.imgseg.GenericSegment;
-import hotstu.github.javacaptcha.imgseg.PiccSegment;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,7 +17,7 @@ import javax.imageio.ImageIO;
 
 public class Trainning {
 	private static final String PROCESSEDIMGS = "D:/captcha/picc/processDimgs/";
-	private static final String RAW_CHAR_DIR = "D:/captcha/picc";
+	private static final String RAW_CHAR_DIR = "C:/Users/fahai/Documents/captcha";
 	
 	public static void batchPreProcess() {
 		File dir = new File(RAW_CHAR_DIR);

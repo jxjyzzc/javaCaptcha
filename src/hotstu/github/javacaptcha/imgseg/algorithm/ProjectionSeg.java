@@ -1,5 +1,6 @@
 package hotstu.github.javacaptcha.imgseg.algorithm;
 
+import hotst.github.javacaptcha.common.ImageCommons;
 import hotst.github.javacaptcha.common.PiccConstants;
 import hotst.github.javacaptcha.model.BinaryMatrix;
 import hotst.github.javacaptcha.model.SubRect;
@@ -18,10 +19,8 @@ public class ProjectionSeg {
 	
 		public static List<BinaryMatrix> myProjection( BinaryMatrix img){
 			List<SubRect> subImgList = new ArrayList<SubRect>();
-//			img.navieRemoveNoise();//去噪点
-			int w = img.getWidth(); int h = img.getHeight();
+			int h = img.getHeight();
 			int[] xpro = img.xpro();
-			//人保的验证码y轴无需分割
 			char currentGroup = 0;
 			for(int i=0;i<xpro.length;i++){
 				int length=0;
@@ -49,7 +48,10 @@ public class ProjectionSeg {
 						image.setTrue(i, j);
 				}
 			}
-			projectionList.add(image);
+			if(image.getHeight()>=PiccConstants.AVER_CHAR_HEIGHT+PiccConstants.CHAR_RANG_WINDOW){
+				image.navieRemoveNoise(2);
+			}
+			projectionList.add(ImageCommons.cutHistogram(image,(char)subImgList.indexOf(r)));
 		}
 		return projectionList;
 	 }

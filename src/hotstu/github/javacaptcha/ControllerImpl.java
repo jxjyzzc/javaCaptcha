@@ -28,7 +28,6 @@ public class ControllerImpl implements IController{
 //		this.segProcessor = new PiccSegment();
 	}
 
-	private String fileName;
 	
 	@Override
 	public String predict(File f) {
@@ -38,7 +37,6 @@ public class ControllerImpl implements IController{
 			BufferedImage sourceImage = ImageIO.read(f);
 			BinaryMatrix im = preprocess(sourceImage);
 			
-			fileName = f.getName();
 			List<BinaryMatrix> interList = split(im);
 			RobustPredict.predict(interList);
 
@@ -85,7 +83,7 @@ public class ControllerImpl implements IController{
 
 	@Override
 	public List<BinaryMatrix> split(BinaryMatrix im) {
-		return segProcessor.seg2file(im, fileName);
+		return segProcessor.seg2file(im, null);
 	}
 
 }

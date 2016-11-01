@@ -76,7 +76,7 @@ public class ColorFillSeg {
 		
 		List<BinaryMatrix> cfgList = new ArrayList<BinaryMatrix>();
 		for (SubRect r : subImgList) {
-//			System.out.println("left:"+r.left+",top:"+r.top+",right:"+r.right+",bottom:"+r.bottom);
+			//人保验证码粘连情况不多,可以让这里不进行过滤
 			if (r.getWidth() < PiccConstants.MIN_RECT_WIDTH || r.getHeight() < PiccConstants.MIN_RECT_HEGITH) {
 				System.out.printf("ColorFillSeg:(width,height)：(%d, %d) < (%d, %d)\n", r.getWidth(), 
 						r.getHeight(), PiccConstants.MIN_RECT_WIDTH, PiccConstants.MIN_RECT_HEGITH);
